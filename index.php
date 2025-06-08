@@ -124,8 +124,8 @@ if ($_SERVER['REQUEST_METHOD'] !== 'GET') {
     exit;
 }
 
-$oage = (isset($_GET['page']) && preg_match('/^[a-zA-Z0-9_\-\/]+\.html?$/', $_GET['page'])) 
-    ? htmlspecialchars($_GET['page'], ENT_QUOTES, 'UTF-8') 
+$oage = (isset($_GET['page']) && preg_match('/^[a-zA-Z0-9_\-\/]+\.html?$/', $_GET['page']))
+    ? htmlspecialchars($_GET['page'], ENT_QUOTES, 'UTF-8')
     : 'index.html';
 
 $carpeta = "templated-hielo";
@@ -134,6 +134,35 @@ $archivo = __DIR__ . '/' . $carpeta . '/' . $oage;
 
 $jsnonce = base64_encode(random_bytes(16));
 $jssri = "sha384-" . base64_encode(hash('sha384', file_get_contents(__DIR__ . '/js/virtualized-list.min.js'), true));
+
+
+
+$manifestPath = __DIR__ . '/manifest.json';
+$site_title = $_SERVER['HTTP_HOST'] ?? "";
+$site_desc = "";
+$site_author = "Xander Dice";
+
+if (file_exists($manifestPath)) {
+    $json = file_get_contents($manifestPath);
+    $manifest = json_decode($json, true);
+
+    if (is_array($manifest)) {
+        if (!empty($manifest['name'])) {
+            $site_title = $manifest['name'];
+        } elseif (!empty($manifest['short_name'])) {
+            $site_title = $manifest['short_name'];
+        }
+        if (!empty($manifest['description'])) {
+            $site_desc = $manifest['description'];
+        }
+        if (!empty($manifest['author'])) {
+            $site_author = $manifest['author'];
+        }
+    }
+}
+
+
+
 
 
 $html = renderHtmlTemplate($archivo);
@@ -222,6 +251,9 @@ function renderHtmlTemplate($path)
     }
 
     $html = file_get_contents($path);
+
+
+
 
     // Buscar todas las variables [[NOMBRE]]
     preg_match_all('/\[\[([a-zA-Z0-9_]+)\]\]/', $html, $matches);

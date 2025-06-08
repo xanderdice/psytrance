@@ -1,0 +1,40 @@
+{
+  "name": "Psytrance Argentina",
+  "short_name": "Psytrance",
+  "description": "Eventos, música, cultura y comunidad psytrance en Argentina.",
+  "lang": "es-AR",
+  "start_url": "/",
+  "scope": "/",
+  "display": "standalone",
+  "orientation": "portrait",
+  "background_color": "#000000",
+  "theme_color": "#00ffcc",
+  "dir": "ltr",
+  "categories": [
+    "music",
+    "events",
+    "community",
+    "culture"
+  ],
+  "prefer_related_applications": false,
+  "icons": [
+    {
+      "src": "./icons/psytrance_LOGO-192x192.png",
+      "sizes": "192x192",
+      "type": "image/png",
+      "purpose": "any"
+    },
+    {
+      "src": "./icons/psytrance_LOGO-512x512.png",
+      "sizes": "512x512",
+      "type": "image/png",
+      "purpose": "any maskable"
+    },
+    {
+      "src": "./icons/psytrance_LOGO-512x512.png",
+      "sizes": "512x512",
+      "type": "image/png",
+      "purpose": "maskable"
+    }
+  ]
+}
