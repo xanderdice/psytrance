@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Mi App PHP</title>
+    <script type="text/javascript" src="./js/virtualized-list.min.js" integrity="[[jssri]]"></script>
+    <script type="text/javascript" nonce="[[jsnonce]]">
+        async function postData(url, data = {}) {
+            data.csrf_token = "[[csrf_token]]";
+            try {
+                const response = await fetch(url, {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                        'X-Requested-With': 'XMLHttpRequest'
+                    },
+                    body: JSON.stringify(data),
+                    credentials: 'same-origin' // Importante para enviar cookies de sesión
+                });
+
+                if (!response.ok) {
+                    const text = await response.text();
+                    throw new Error(`Error ${response.status}: ${text}`);
+                }
+
+                const json = await response.json();
+                return json;
+            } catch (err) {
+                console.error('AJAX POST failed:', err);
+                throw err; // O manejalo como quieras
+            }
+        }
+
+
+
+    </script>
+</head>
+
+<body>
+    HOLA MUNDO [[usuario]]
+</body>
+
+</html>
